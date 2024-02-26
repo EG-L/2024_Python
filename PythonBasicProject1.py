@@ -26,3 +26,11 @@
 a = 10
 print(type(a))
 print(id(a))
+
+d = True
+print(type(d))
+print(bool(1)) # 0이 아닌 모든 수(True) 0,0.0 => false
+
+print(float(a)) #데이터형 변환
+# 문자열 변환
+print(c+a)
