@@ -19,7 +19,7 @@
             {% for food in food_list %}
             <div class="col-md-4">
                 <div class="thumbnail">
-                  <a href="#">
+                  <a href="/food/before/?fno={{food.fno}}">
                     <img src="http://www.menupan.com{{food.poster}}" alt="Lights" style="width:100%">
                     <div class="caption">
                       <p>{{food.name}}</p>
@@ -27,6 +27,36 @@
                   </a>
                 </div>
               </div>
+            {% endfor %}
+        </div>
+        <div style="height:20px"></div>
+        <div class="row">
+            <div class="text-center">
+                <ul class="pagination">
+                    {% if startPage > 1 %}
+                    <li><a href="/food/?page={{startPage|add:'-1'}}">&laquo;</a></li>
+                    {% endif %}
+                    {% for i in range %}
+                        {% if curpage == i %}
+                        <li class="active"><a href="/food/?page={{i}}">{{i}}</a></li>
+                        {% else %}
+                        <li><a href="/food/?page={{i}}">{{i}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if endPage < totalpage %}
+                    <li><a href="/food/?page={{endPage|add:'1'}}">&raquo;</a></li>
+                    {% endif %}
+                  </ul>
+            </div>
+        </div>
+        <div style="height:20px"></div>
+        <div class="row">
+            <h3>최근 방문 맛집</h3>
+            <hr>
+            {% for vo in food_cookie %}
+            <a href="/food/detail/?fno={{vo.fno}}">
+                <img src="http://www.menupan.com{{vo.poster}}" alt="Lights" style="width:100px;height:100px;">
+            </a>
             {% endfor %}
         </div>
     </div>

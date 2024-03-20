@@ -5,5 +5,7 @@ from food import views
 
 urlpatterns = [
     path('',views.food_list),
-    path('detail/',views.food_detail)
+    path('detail/',views.food_detail),
+    path('before/',views.food_before),
+    path('emp/',views.emp_list)
 ]
