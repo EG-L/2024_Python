@@ -1,0 +1,104 @@
+{% extends 'main/main.html' %}
+    {% block content %}
+
+    <div class="wrapper row3">
+        <div id="breadcrumb" class="clear"> 
+          <!-- ################################################################################################ -->
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Lorem</a></li>
+            <li><a href="#">Ipsum</a></li>
+            <li><a href="#">Dolor</a></li>
+          </ul>
+          <!-- ################################################################################################ --> 
+        </div>
+      </div>
+      <!-- ################################################################################################ --> 
+      <!-- ################################################################################################ --> 
+      <!-- ################################################################################################ -->
+      <div class="wrapper row3" id="app">
+        <main class="container clear"> 
+          <!-- main body --> 
+          <!-- ################################################################################################ -->
+          <div class="content"> 
+            <!-- ################################################################################################ -->
+            <div id="gallery">
+              <figure>
+                <header class="heading">레시피 목록</header>
+                <ul class="nospace clear">
+                  <li v-for="recipe,index in recipe_list" :class="index%4!=0?'one_quarter':'one_quarter first'"><a href="#"><img :src="recipe.poster" :title="recipe.title"></a></li>
+                </ul>
+                <figcaption></figcaption>
+              </figure>
+            </div>
+            <!-- ################################################################################################ --> 
+            <!-- ################################################################################################ -->
+            <nav class="pagination">
+              <ul>
+                <li v-if="startPage>1"><a class="link" @click="prev()">&laquo; Previous</a></li>
+                <li v-for="i in range(startPage,endPage)" :class="i===curpage?'current':''"><a @click="pageChange(i)">[[i]]</a></li>
+                <li v-if="endPage<totalpage"><a class="link" @click="next()">Next &raquo;</a></li>
+              </ul>
+            </nav>
+            <!-- ################################################################################################ --> 
+          </div>
+          <!-- ################################################################################################ --> 
+          <!-- / main body -->
+          <div class="clear"></div>
+        </main>
+      </div>
+      <script>
+          let recipeApp = Vue.createApp({
+            delimiters:['[[',']]'],  
+            data(){
+                return{
+                  recipe_list:[],
+                  curpage:1,
+                  startPage:0,
+                  endPage:0,
+                  totalpage:0
+                }
+              },
+              mounted(){
+                this.recipe_change()
+              },
+              methods:{
+                recipe_change(){
+                  axios.get('http://localhost:8000/web/recipe/list_vue',{
+                    params:{
+                      page:this.curpage
+                    }
+                  }).then(response=>{
+                    console.log(response.data)
+                    this.recipe_list=response.data.list
+                    this.curpage = response.data.curpage
+                    this.endPage = response.data.endPage
+                    this.startPage = response.data.startPage
+                    this.totalpage = response.data.totalpage
+                  })
+                },
+                range(start,end){
+                  let arr = []
+                  let lang=end-start
+                  for(let i = 0;i<=lang;i++){
+                    arr[i] = start
+                    start++
+                  }
+                  return arr
+                },
+                prev(){
+                  this.curpage = this.startPage-1
+                  this.recipe_change()
+                },
+                next(){
+                  this.curpage = this.endPage+1
+                  this.recipe_change()
+                },
+                pageChange(i){
+                  this.curpage = i
+                  this.recipe_change()
+                }
+              }
+          }).mount('#app')
+      </script>
+    {% endblock %}
