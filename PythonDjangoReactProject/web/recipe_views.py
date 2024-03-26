@@ -33,8 +33,8 @@ def recipeList(request):
         # "range":range(startPage,endPage)
     }
 
-    return render(request,'recipe/list.html',data)
-    # return JsonResponse(data)
+    # return render(request,'recipe/list.html',data)
+    return JsonResponse(data)
 
 def recipeFind(request):
     try:

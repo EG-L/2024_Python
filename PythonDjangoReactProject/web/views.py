@@ -28,12 +28,21 @@ def main_page(request):
                 "poster":f[2]
             }
             fd.append(fdata)
-        
+        cdata = models.chefMainData()
+        print(cdata)
+        tdata = models.todayFoodData()
+        print(tdata)
+        foodhouse = models.newsData('맛집','O7cbEP6pS73QClRY45Hd','NADfUc10JR')
+        print(foodhouse['items'])
         main_data={
             "rd":rd,
-            "fd":fd
+            "fd":fd,
+            "cd":cdata,
+            "td":tdata,
+            "nd":foodhouse['items']
         }
     except Exception as e:
         print(e)
     # return render(request,'main/home.html',main_data)
     return JsonResponse(main_data)
+

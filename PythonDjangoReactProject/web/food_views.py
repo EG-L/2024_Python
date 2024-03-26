@@ -33,11 +33,11 @@ def food_list(reqeust):
         "endPage":endPage,
         "startPage":startPage,
         "count":count,
-        "range":range(startPage,endPage)
+        # "range":range(startPage,endPage)
     }
 
-    return render(reqeust,"food/list.html",food_data)
-    # return JsonResponse(food_data)
+    # return render(reqeust,"food/list.html",food_data)
+    return JsonResponse(food_data)
 
 def food_find(request):
     try:
