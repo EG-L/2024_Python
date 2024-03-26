@@ -109,3 +109,21 @@ def foodFindData(page,address):
         print(e)
     
     return food_list,totalpage[0],count[0]
+
+def foodDetail(fno):
+    try:
+        conn = getConnection()
+        cursor = conn.cursor()
+        sql = f"""
+            SELECT 'http://www.menupan.com'||poster,name,type,address,phone,score,theme,price,time,seat 
+            FROM food_menu_house 
+            WHERE fno={fno}
+        """
+        cursor.execute(sql)
+        food_detail = cursor.fetchone()
+        cursor.close()
+        conn.close()
+    except Exception as e:
+        print(e)
+    
+    return food_detail

@@ -117,3 +117,21 @@ def recipeChefList(page):
         print(e)
     
     return chef_list,totalpage[0]
+
+def recipe_detail(no):
+    try:
+        conn = getConnection()
+        cursor = conn.cursor()
+        print(no)
+        sql = f"""
+            SELECT * 
+            FROM recipeDetail WHERE no={no}
+        """
+        cursor.execute(sql)
+        dt = cursor.fetchone()
+        stuff,rdata = ''.join(dt[-1].read()),''.join(dt[-2].read())
+        cursor.close()
+        conn.close()
+    except Exception as e:
+        print(e)
+    return dt,rdata,stuff

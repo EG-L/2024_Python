@@ -183,3 +183,46 @@ def recipe_chef(request):
     }
 
     return JsonResponse(data)
+
+def recipeDetailView(request):
+    no=request.GET['no']
+    return render(request,"recipe/recipe_detail.html",{"no":no})
+
+def recipeDetail(request):
+    no = request.GET['no']
+    rd,rdata,stuff = recipe_models.recipe_detail(int(no))
+    re_detail={
+        "no":int(rd[0]),
+        "poster":rd[1],
+        "title":rd[2],
+        "chef":rd[3],
+        "chef_poster":rd[4],
+        "chef_profile":rd[5],
+        "info1":rd[6],
+        "info2":rd[7],
+        "info3":rd[8],
+        "content":rd[9]
+    }
+    print(rdata)
+    stuff=stuff.split(",")
+    rdata=rdata.split("\n")
+    print(rdata)
+    make=[]
+    posters=[]
+
+    for data in range(len(rdata)-1):
+        temp = rdata[data].split("^")
+        print(temp)
+        make.append(temp[0])
+        posters.append(temp[1])
+
+    detail={
+        "detail":re_detail,
+        "posters":posters,
+        "make":make,
+        "stuff":stuff
+    }
+
+    # return render(request,'recipe/recipe_detail',detail)
+    return JsonResponse(detail)
+    

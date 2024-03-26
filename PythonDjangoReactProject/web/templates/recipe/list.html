@@ -26,7 +26,7 @@
               <figure>
                 <header class="heading">레시피 목록</header>
                 <ul class="nospace clear">
-                  <li v-for="recipe,index in recipe_list" :class="index%4!=0?'one_quarter':'one_quarter first'"><a href="#"><img :src="recipe.poster" :title="recipe.title"></a></li>
+                  <li v-for="recipe,index in recipe_list" :class="index%4!=0?'one_quarter':'one_quarter first'"><a :href="'/web/recipe/detail?no='+recipe.no"><img :src="recipe.poster" :title="recipe.title"></a></li>
                 </ul>
                 <figcaption></figcaption>
               </figure>

@@ -20,7 +20,33 @@
             <h2 class="sectiontitle">쉐프 목록</h2>
             <table class="table">
                 <tr>
-                    
+                    <td>
+                        <table class="table" v-for="vo in chef_list">
+                          <tbody>
+                            <tr>
+                              <td width="20%" rowspan="2">
+                                <a :href="'http://localhost:8000/web/recipe/chef_detail?cno='+vo.cno">
+                                  <img :src="vo.poster" class="img-circle" style="width: 120px;height: 120px;">
+                                </a>
+                              </td>
+                              <td colspan="4">
+                                <a :href="'http://localhost:8000/web/recipe/chef_detail?cno='+vo.cno">
+                                  <h3 style="color: orange;">[[vo.chef]]</h3>
+                                </a>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="text-center"><img src="/static/icon/m1.png">&nbsp;[[vo.mem_cont1.toLocaleString()]]</td>
+                              <td class="text-center"><img src="/static/icon/m2.png">&nbsp;[[vo.mem_cont2.toLocaleString()]]</td>
+                              <td class="text-center"><img src="/static/icon/m3.png">&nbsp;[[vo.mem_cont7.toLocaleString()]]</td>
+                              <td class="text-center"><img src="/static/icon/m4.png">&nbsp;[[vo.mem_cont3.toLocaleString()]]</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </td>
+                    <td>
+
+                    </td>
                 </tr>
             </table>
             <nav class="pagination">
@@ -50,10 +76,10 @@
                 }
               },
               mounted(){
-                this.recipe_change()
+                this.dataRecv()
               },
               methods:{
-                recipe_change(){
+                dataRecv(){
                   axios.get('http://localhost:8000/web/recipe/chef_vue',{
                     params:{
                       page:this.curpage
@@ -78,15 +104,15 @@
                 },
                 prev(){
                   this.curpage = this.startPage-1
-                  this.recipe_change()
+                  this.dataRecv()
                 },
                 next(){
                   this.curpage = this.endPage+1
-                  this.recipe_change()
+                  this.dataRecv()
                 },
                 pageChange(i){
                   this.curpage = i
-                  this.recipe_change()
+                  this.dataRecv()
                 }
               }
           }).mount('#app')

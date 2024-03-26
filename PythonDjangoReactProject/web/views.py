@@ -35,5 +35,5 @@ def main_page(request):
         }
     except Exception as e:
         print(e)
-    return render(request,'main/home.html',main_data)
-    # return JsonResponse(main_data)
+    # return render(request,'main/home.html',main_data)
+    return JsonResponse(main_data)

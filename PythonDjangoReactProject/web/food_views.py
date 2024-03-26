@@ -79,3 +79,25 @@ def food_find(request):
     }
 
     return render(request,"food/find.html",food_data)
+
+
+def food_detail(request):
+    try:
+        fno = request.GET['fno']
+        fd = food_models.foodDetail(int(fno))
+        f_detail={
+            "poster":fd[0],
+            "name":fd[1],
+            "type":fd[2],
+            "address":fd[3],
+            "phone":fd[4],
+            "score":fd[5],
+            "theme":fd[6],
+            "price":fd[7],
+            "time":fd[8],
+            "seat":fd[9]
+        }
+    except Exception as e:
+        print(e)
+    
+    return render(request,'food/food_detail.html',f_detail)
