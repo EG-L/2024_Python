@@ -74,11 +74,12 @@ def food_find(request):
         "endPage":endPage,
         "startPage":startPage,
         "count":count,
-        "range":range(startPage,endPage),
+        # "range":range(startPage,endPage),
         "address":address
     }
 
-    return render(request,"food/find.html",food_data)
+    # return render(request,"food/find.html",food_data)
+    return JsonResponse(food_data)
 
 
 def food_detail(request):
@@ -100,4 +101,5 @@ def food_detail(request):
     except Exception as e:
         print(e)
     
-    return render(request,'food/food_detail.html',f_detail)
+    # return render(request,'food/food_detail.html',f_detail)
+    return JsonResponse(f_detail)

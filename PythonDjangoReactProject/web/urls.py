@@ -1,5 +1,5 @@
 from django.urls import path,include
-from web import views,food_views,recipe_views
+from web import views,food_views,recipe_views,goods_views
 '''
                     어노테이션을 찾아서 메소드를 호출
     사용자 요청 ===> DispatchServlet ===> Model(@Controller) ==> ViewResolver
@@ -35,5 +35,8 @@ urlpatterns = [
     path('recipe/chef_vue',recipe_views.recipe_chef),
     path('food/food_detail',food_views.food_detail),
     path('recipe/detail',recipe_views.recipeDetailView),
-    path('recipe/detail_vue',recipe_views.recipeDetail)
+    path('recipe/detail_vue',recipe_views.recipeDetail),
+    path('goods/list',goods_views.goods_list),
+    path('chef/detail',recipe_views.chef_detail),
+    path('goods/detail',goods_views.goods_detail)
 ]

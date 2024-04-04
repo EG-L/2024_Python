@@ -135,3 +135,41 @@ def recipe_detail(no):
     except Exception as e:
         print(e)
     return dt,rdata,stuff
+
+def recipeChefDetail(page,chef):
+    try:
+        conn = getConnection()
+        cursor = conn.cursor()
+        rowSize = 20
+        start = (rowSize*page)-(rowSize-1)
+        end = (rowSize*page)
+        sql = f"""
+            SELECT no,title,poster,chef,hit,num
+            FROM (SELECT no,title,poster,chef,hit,rownum as num 
+            FROM (SELECT no,title,poster,chef,hit 
+            FROM recipe WHERE chef='{chef}' ORDER BY no))
+            WHERE num BETWEEN {start} AND {end}
+        """
+        cursor.execute(sql)
+        chef_data = cursor.fetchall()
+        header = [row[0] for row in cursor.description]
+        data = [dict(zip(header,chef_data[i])) for i in range(len(chef_data))]
+
+        cursor.close()
+
+        sql = f"""
+            SELECT COUNT(*) FROM recipe 
+            WHERE chef='{chef}'
+        """
+        cursor = conn.cursor()
+
+        cursor.execute(sql)
+        count = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+    except Exception as e:
+        print(e)
+
+    return data,count[0]

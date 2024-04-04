@@ -226,3 +226,21 @@ def recipeDetail(request):
     # return render(request,'recipe/recipe_detail',detail)
     return JsonResponse(detail)
     
+def chef_detail(request):
+    try:
+        page = request.GET['page']
+    except Exception as e:
+        page = "1"
+    
+    curpage = int(page)
+
+    chef = request.GET['chef']
+    chef_list,count = recipe_models.recipeChefDetail(int(page),chef)
+
+    detail={
+        "detail":chef_list,
+        "count":count,
+        "curpage":curpage
+    }
+
+    return JsonResponse(detail)
